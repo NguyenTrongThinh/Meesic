@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Meesic</string>
+    <string name="text_trang_chu">Home</string>
+    <string name="text_search">Search</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
