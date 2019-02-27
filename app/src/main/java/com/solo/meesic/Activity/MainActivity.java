@@ -1,39 +1,32 @@
 package com.solo.meesic.Activity;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import com.solo.meesic.Adapter.MainViewPagerAdapter;
-import com.solo.meesic.Fragment.TimKiemFragment;
-import com.solo.meesic.Fragment.TrangChuFragment;
+import com.solo.meesic.Adapter.MainViewAdapter;
+import com.solo.meesic.Fragment.HomeFragment;
+import com.solo.meesic.Fragment.SearchFragment;
 import com.solo.meesic.R;
+import com.solo.meesic.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    TabLayout tabLayout;
-    ViewPager viewPager;
+    private ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        bindView();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         init();
     }
 
     private void init() {
-        MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
-        mainViewPagerAdapter.addFragment(new TrangChuFragment(), getResources().getString(R.string.text_trang_chu));
-        mainViewPagerAdapter.addFragment(new TimKiemFragment(), getResources().getString(R.string.text_search));
-        viewPager.setAdapter(mainViewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.icontrangchu);
-        tabLayout.getTabAt(1).setIcon(R.drawable.iconsearch);
-    }
-
-    private void bindView() {
-        tabLayout = findViewById(R.id.myTabLayout);
-        viewPager = findViewById(R.id.myViewPager);
+        MainViewAdapter mainViewAdapter = new MainViewAdapter(getSupportFragmentManager());
+        mainViewAdapter.addFragment(new HomeFragment(), getResources().getString(R.string.text_trang_chu));
+        mainViewAdapter.addFragment(new SearchFragment(), getResources().getString(R.string.text_search));
+        binding.activityMainViewpager.setAdapter(mainViewAdapter);
+        binding.activityMainTablayout.setupWithViewPager(binding.activityMainViewpager);
+        binding.activityMainTablayout.getTabAt(0).setIcon(R.drawable.icontrangchu);
+        binding.activityMainTablayout.getTabAt(1).setIcon(R.drawable.iconsearch);
     }
 }
