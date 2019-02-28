@@ -7,7 +7,8 @@
             android:id="@+id/single_ads_banner_img_background"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"
+            android:contentDescription="@string/todo" />
         <RelativeLayout
             android:id="@+id/relative1"
             android:layout_alignBottom="@id/single_ads_banner_img_background"
@@ -20,7 +21,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_width="70dp"
-                android:layout_height="70dp" />
+                android:layout_height="70dp"
+                android:contentDescription="TODO" />
             <TextView
                 android:id="@+id/single_ads_banner_txt_title"
                 android:textSize="17sp"
@@ -28,11 +30,11 @@
                 android:textStyle="bold"
                 android:layout_marginTop="5dp"
                 android:layout_alignTop="@id/single_ads_banner_img_ads"
-                android:layout_toRightOf="@id/single_ads_banner_img_ads"
+                android:layout_toEndOf="@id/single_ads_banner_img_ads"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <RelativeLayout
-                android:layout_toRightOf="@id/single_ads_banner_img_ads"
+                android:layout_toEndOf="@id/single_ads_banner_img_ads"
                 android:layout_below="@id/single_ads_banner_txt_title"
                 android:layout_marginTop="7dp"
                 android:layout_width="match_parent"

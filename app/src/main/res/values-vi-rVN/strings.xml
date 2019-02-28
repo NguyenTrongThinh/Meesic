@@ -4,4 +4,7 @@
     <string name="text_trang_chu">Trang Chủ</string>
     <string name="text_search">Tìm Kiếm</string>
     <string name="hello_blank_fragment">Blank Fragment</string>
+    <string name="todo">TODO</string>
+    <string name="text_playlist_title">Nhịp Điệu Cảm Xúc</string>
+    <string name="text_playlist_more">Xem Thêm</string>
 </resources>

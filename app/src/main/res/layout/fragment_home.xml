@@ -8,13 +8,18 @@
         android:scrollbars="none"
         android:fillViewport="true">
         <LinearLayout
-            android:id="@+id/trangchu_linearLayout"
+            android:id="@+id/fragment_home_linearlayout"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <fragment
-                android:id="@+id/fragmentbanner"
+                android:id="@+id/fragment_home_ads"
                 android:name="com.solo.meesic.Fragment.AdsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <fragment
+                android:id="@+id/fragment_home_playlist"
+                android:name="com.solo.meesic.Fragment.PlaylistFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
