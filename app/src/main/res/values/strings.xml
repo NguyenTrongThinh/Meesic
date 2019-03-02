@@ -8,6 +8,8 @@
     <string name="todo">TODO</string>
     <string name="text_playlist_title">Feeling Tone</string>
     <string name="text_playlist_more">More</string>
+    <string name="text_category_title">Category And Type</string>
+    <string name="text_category_more">More</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

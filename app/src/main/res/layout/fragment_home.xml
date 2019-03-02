@@ -17,12 +17,19 @@
                 android:name="com.solo.meesic.Fragment.AdsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
             <fragment
                 android:id="@+id/fragment_home_playlist"
                 android:name="com.solo.meesic.Fragment.PlaylistFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+            <fragment
+                android:id="@+id/fragment_home_category"
+                android:name="com.solo.meesic.Fragment.GroupFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </ScrollView>
+
 </layout>
