@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/single_most_like_song_image"
+            android:scaleType="fitXY"
+            android:layout_margin="3dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+        <TextView
+            android:id="@+id/single_most_like_song_name"
+            android:textSize="18sp"
+            android:textColor="#363636"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_toRightOf="@id/single_most_like_song_image"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/single_most_like_singer_name"
+            android:textColor="#8c8a8a"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:layout_toRightOf="@id/single_most_like_song_image"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="5dp"
+            android:layout_below="@id/single_most_like_song_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/single_most_like_icon_love"
+            android:src="@drawable/iconlove"
+            android:layout_alignBottom="@id/single_most_like_song_image"
+            android:layout_toRightOf="@id/single_most_like_song_image"
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
+    </RelativeLayout>
+</layout>

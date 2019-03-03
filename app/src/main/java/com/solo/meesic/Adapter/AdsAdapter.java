@@ -1,13 +1,16 @@
 package com.solo.meesic.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.solo.meesic.Activity.SongListActivity;
 import com.solo.meesic.Model.QuangCao;
 import com.solo.meesic.R;
 import com.solo.meesic.databinding.SingleAdsBannerBinding;
@@ -37,7 +40,7 @@ public class AdsAdapter extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         LayoutInflater inflater = LayoutInflater.from(context);
         binding = DataBindingUtil.inflate(inflater, R.layout.single_ads_banner, container, false);
         Picasso.with(context).load(quangCaoArrayList.get(position).getHinhanh()).into(binding.singleAdsBannerImgBackground);
@@ -45,6 +48,14 @@ public class AdsAdapter extends PagerAdapter {
         binding.singleAdsBannerTxtTitle.setText(quangCaoArrayList.get(position).getTenBaiHat());
         binding.singleAdsBannerTxtContent.setText(quangCaoArrayList.get(position).getNoidung());
         view = binding.getRoot();
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SongListActivity.class);
+                intent.putExtra("ads", quangCaoArrayList.get(position));
+                context.startActivity(intent);
+            }
+        });
         container.addView(view);
         return view;
     }

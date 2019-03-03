@@ -12,6 +12,7 @@
     <string name="text_category_more">More</string>
     <string name="text_album_hot_title">ALBUM HOT</string>
     <string name="text_album_hot_more">More</string>
+    <string name="text_most_like_title">YOU MAY LIKE</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

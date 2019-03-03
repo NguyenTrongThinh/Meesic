@@ -33,6 +33,11 @@
                 android:name="com.solo.meesic.Fragment.AlbumHotFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+            <fragment
+                android:id="@+id/fragment_home_mostlike_song"
+                android:name="com.solo.meesic.Fragment.MostLikeFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </ScrollView>
