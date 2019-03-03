@@ -9,4 +9,6 @@
     <string name="text_playlist_more">Xem Thêm</string>
     <string name="text_category_title">Chủ Đề Và Thế Loại</string>
     <string name="text_category_more">Xem Thêm</string>
+    <string name="text_album_hot_title">Album Hot</string>
+    <string name="text_album_hot_more">Xem Thêm</string>
 </resources>

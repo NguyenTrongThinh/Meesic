@@ -3,11 +3,10 @@ package com.solo.meesic.Adapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,10 +17,25 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class PlaylistAdapter extends ArrayAdapter<Playlist> {
+public class PlaylistAdapter extends PagerAdapter {
+    private Context context;
+    private List<Playlist> playlistList;
+    private View view;
     SinglePlaylistContentBinding binding;
-    public PlaylistAdapter(@NonNull Context context, int resource, @NonNull List<Playlist> objects) {
-        super(context, resource, objects);
+
+    public PlaylistAdapter(Context context, List<Playlist> playlistList) {
+        this.context = context;
+        this.playlistList = playlistList;
+    }
+
+    @Override
+    public int getCount() {
+        return playlistList.size();
+    }
+
+    @Override
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
+        return view == o;
     }
 
     private class ViewHolder {
@@ -31,25 +45,19 @@ public class PlaylistAdapter extends ArrayAdapter<Playlist> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ViewHolder viewHolder = null;
-        if (convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            binding = DataBindingUtil.inflate(inflater, R.layout.single_playlist_content, parent, false);
-            viewHolder = new ViewHolder();
-            viewHolder.txtPlayListName = binding.singlePlaylistContentTxtName;
-            viewHolder.imgBackground = binding.singlePlaylistContentImgBackground;
-            viewHolder.imgListImage = binding.singlePlaylistContentImgList;
-            convertView = binding.getRoot();
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
-        Playlist playlist = getItem(position);
-        Picasso.with(getContext()).load(playlist.getHinhPlaylist()).into(viewHolder.imgBackground);
-        Picasso.with(getContext()).load(playlist.getIcon()).into(viewHolder.imgListImage);
-        viewHolder.txtPlayListName.setText(playlist.getTen());
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        binding = DataBindingUtil.inflate(inflater, R.layout.single_playlist_content, container, false);
+        Picasso.with(context).load(playlistList.get(position).getHinhPlaylist()).into(binding.singlePlaylistContentImgBackground);
+        Picasso.with(context).load(playlistList.get(position).getIcon()).into(binding.singlePlaylistContentImgList);
+        binding.singlePlaylistContentTxtName.setText(playlistList.get(position).getTen());
+        view = binding.getRoot();
+        container.addView(view);
+        return view;
+    }
 
-        return convertView;
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        container.removeView((View) object);
     }
 }

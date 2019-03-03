@@ -60,7 +60,7 @@ public class GroupFragment extends Fragment {
                 theLoaiArrayList.addAll(dailyCategory.getTheLoai());
                 LinearLayout linearLayout = new LinearLayout(getActivity());
                 linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(580, 250);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(580, 350);
                 layoutParams.setMargins(10, 20, 10, 30);
 
                 for (int i = 0; i < chuDeArrayList.size(); i++) {

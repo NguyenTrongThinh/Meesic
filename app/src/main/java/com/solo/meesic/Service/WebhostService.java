@@ -1,5 +1,6 @@
 package com.solo.meesic.Service;
 
+import com.solo.meesic.Model.AlbumHot;
 import com.solo.meesic.Model.DailyCategory;
 import com.solo.meesic.Model.Playlist;
 import com.solo.meesic.Model.QuangCao;
@@ -16,4 +17,6 @@ public interface WebhostService {
     Call<List<Playlist>> GetPlaylistCurrentDay();
     @GET("chudevatheloaitrongngay.php")
     Call<DailyCategory> GetCategoryMusic();
+    @GET("albumhot.php")
+    Call<List<AlbumHot>> GetAlbumHot();
 }
