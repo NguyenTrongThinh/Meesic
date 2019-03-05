@@ -8,12 +8,9 @@
             android:id="@+id/single_playlist_content_img_background"
             android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
         </ImageButton>
-        <View
-            android:background="@drawable/custom_background_banner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
         <ImageView
             android:id="@+id/single_playlist_content_img_list"
             android:layout_marginBottom="10dp"

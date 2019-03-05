@@ -4,6 +4,7 @@ package com.solo.meesic.Fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +57,9 @@ public class PlaylistFragment extends Fragment {
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
                 playlistArrayList = (ArrayList<Playlist>) response.body();
                 playlistAdapter = new PlaylistAdapter(getActivity(), playlistArrayList);
-                binding.fragmentPlaylistViewpager.setAdapter(playlistAdapter);
-                binding.fragmentPlaylistIndicator.setViewPager(binding.fragmentPlaylistViewpager);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                binding.fragmentPlaylistRecycleViewList.setLayoutManager(linearLayoutManager);
+                binding.fragmentPlaylistRecycleViewList.setAdapter(playlistAdapter);
             }
 
             @Override
