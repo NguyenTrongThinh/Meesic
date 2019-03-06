@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.Toast;
 
+import com.solo.meesic.Adapter.OnItemClickListener;
 import com.solo.meesic.Adapter.SongListAdapter;
 import com.solo.meesic.Model.QuangCao;
 import com.solo.meesic.Model.Song;
@@ -30,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SongListActivity extends AppCompatActivity {
+public class SongListActivity extends AppCompatActivity  {
 
     private ActivitySongListBinding binding;
     private QuangCao quangCao;
@@ -55,7 +57,12 @@ public class SongListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 songArrayList = (ArrayList<Song>) response.body();
-                songListAdapter = new SongListAdapter(SongListActivity.this, songArrayList);
+                songListAdapter = new SongListAdapter(SongListActivity.this, songArrayList, new OnItemClickListener() {
+                    @Override
+                    public void onSongListItemClick(Song item) {
+                        Toast.makeText(SongListActivity.this, item.getTenbaihat(), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 binding.activitySongSongList.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
                 binding.activitySongSongList.setAdapter(songListAdapter);
             }

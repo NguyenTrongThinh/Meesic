@@ -8,8 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.solo.meesic.Adapter.MostLikeAdapter;
+import com.solo.meesic.Adapter.OnItemClickListener;
 import com.solo.meesic.Model.Song;
 import com.solo.meesic.R;
 import com.solo.meesic.Service.WebhostService;
@@ -52,7 +54,12 @@ public class MostLikeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 ArrayList<Song> songArrayList = (ArrayList<Song>) response.body();
-                MostLikeAdapter mostLikeAdapter = new MostLikeAdapter(getActivity(), songArrayList);
+                MostLikeAdapter mostLikeAdapter = new MostLikeAdapter(getActivity(), songArrayList, new OnItemClickListener() {
+                    @Override
+                    public void onSongListItemClick(Song item) {
+                        Toast.makeText(getContext(), item.getTenbaihat(), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 binding.fragmentMostLikeRecycleViewSong.setLayoutManager(layoutManager);
