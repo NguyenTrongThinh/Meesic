@@ -22,10 +22,11 @@ public class MostLikeAdapter extends RecyclerView.Adapter<MostLikeAdapter.ViewHo
     private Context context;
     private View view;
     private List<Song> songList;
-
-    public MostLikeAdapter(Context context, List<Song> songList) {
+    private OnItemClickListener listener;
+    public MostLikeAdapter(Context context, List<Song> songList, OnItemClickListener listener) {
         this.context = context;
         this.songList = songList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -44,7 +45,7 @@ public class MostLikeAdapter extends RecyclerView.Adapter<MostLikeAdapter.ViewHo
         viewHolder.txtSongName.setText(song.getTenbaihat());
         viewHolder.txtSingerName.setText(song.getCasi());
         Picasso.with(context).load(song.getHinhbaihat()).into(viewHolder.imgSongImage);
-
+        viewHolder.bind(songList.get(i), listener);
     }
 
     @Override
@@ -64,6 +65,13 @@ public class MostLikeAdapter extends RecyclerView.Adapter<MostLikeAdapter.ViewHo
             imgLove = binding.singleMostLikeIconLove;
             imgSongImage = binding.singleMostLikeSongImage;
 
+        }
+        public void bind(final Song item, final OnItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onSongListItemClick(item);
+                }
+            });
         }
     }
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.solo.meesic.Model.Song;
 import com.solo.meesic.R;
 import com.solo.meesic.databinding.SingleSongListItemBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -22,9 +23,11 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
     private ArrayList<Song> songArrayList;
     private SingleSongListItemBinding binding;
     private View view;
-    public SongListAdapter(Context context, ArrayList<Song> songArrayList) {
+    private OnItemClickListener listener;
+    public SongListAdapter(Context context, ArrayList<Song> songArrayList, OnItemClickListener listener) {
         this.context = context;
         this.songArrayList = songArrayList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -42,6 +45,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
         viewHolder.txtSinger.setText(song.getCasi());
         viewHolder.txtSongName.setText(song.getTenbaihat());
         viewHolder.txtIndex.setText(String.valueOf(i + 1));
+        viewHolder.bind(songArrayList.get(i), listener);
     }
 
     @Override
@@ -59,6 +63,13 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.ViewHo
             txtSinger = binding.singleSongListItemTextSimgerName;
             txtSongName = binding.singleSongListItemTextSongName;
             imgLove = binding.singleSongListItemImgLove;
+        }
+        public void bind(final Song item, final OnItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onSongListItemClick(item);
+                }
+            });
         }
     }
 }
