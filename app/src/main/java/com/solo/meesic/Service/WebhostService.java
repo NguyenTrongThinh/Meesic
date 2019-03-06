@@ -2,9 +2,9 @@ package com.solo.meesic.Service;
 
 import com.solo.meesic.Model.AlbumHot;
 import com.solo.meesic.Model.DailyCategory;
-import com.solo.meesic.Model.Song;
 import com.solo.meesic.Model.Playlist;
 import com.solo.meesic.Model.QuangCao;
+import com.solo.meesic.Model.Song;
 
 import java.util.List;
 
@@ -28,4 +28,7 @@ public interface WebhostService {
     @FormUrlEncoded
     @POST("danhsachbaihat.php")
     Call<List<Song>> GetDanhSachBaiHatTheoQuangCao(@Field("idquangcao") String idquangcao);
+    @FormUrlEncoded
+    @POST("danhsachbaihat.php")
+    Call<List<Song>> GetDanhSachBaiHatTheoPlaylist(@Field("idplaylist") String idplaylist);
 }

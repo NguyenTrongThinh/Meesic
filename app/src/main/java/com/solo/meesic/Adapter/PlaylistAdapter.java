@@ -1,18 +1,15 @@
 package com.solo.meesic.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.solo.meesic.Activity.SongListActivity;
 import com.solo.meesic.Model.Playlist;
 import com.solo.meesic.R;
 import com.solo.meesic.databinding.SinglePlaylistContentBinding;
@@ -25,10 +22,11 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     private Context context;
     private View view;
     private List<Playlist> playlistList;
-
-    public PlaylistAdapter(Context context, List<Playlist> playlistList) {
+    private OnPlaylistItemClickListener listener;
+    public PlaylistAdapter(Context context, List<Playlist> playlistList, OnPlaylistItemClickListener listener) {
         this.context = context;
         this.playlistList = playlistList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -46,6 +44,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         Picasso.with(context).load(playlist.getHinhPlaylist()).into(viewHolder.imgBackground);
         Picasso.with(context).load(playlist.getIcon()).into(viewHolder.imgListImage);
         viewHolder.txtTitle.setText(playlist.getTen());
+        viewHolder.bind(playlistList.get(i), listener);
     }
 
     @Override
@@ -53,9 +52,9 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         return playlistList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageButton imgBackground;
+        ImageView imgBackground;
         ImageView imgListImage;
         TextView txtTitle;
         Context context;
@@ -64,19 +63,16 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
             super(itemView);
             this.context = context;
             this.playlistList = playlists;
-            itemView.setOnClickListener(this);
             imgListImage = binding.singlePlaylistContentImgList;
             imgBackground = binding.singlePlaylistContentImgBackground;
             txtTitle = binding.singlePlaylistContentTxtName;
         }
-
-        @Override
-        public void onClick(View v) {
-            int position = getAdapterPosition();
-            Playlist playlist = playlistList.get(position);
-            Intent intent = new Intent(context, SongListActivity.class);
-            intent.putExtra("intemplayist", playlist);
-            context.startActivity(intent);
+        public void bind(final Playlist item, final OnPlaylistItemClickListener listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onPlaylistItemClick(item);
+                }
+            });
         }
     }
 }

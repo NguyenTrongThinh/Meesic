@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.solo.meesic.Adapter.OnItemClickListener;
 import com.solo.meesic.Adapter.SongListAdapter;
+import com.solo.meesic.Model.Playlist;
 import com.solo.meesic.Model.QuangCao;
 import com.solo.meesic.Model.Song;
 import com.solo.meesic.R;
@@ -38,6 +39,7 @@ public class SongListActivity extends AppCompatActivity  {
     private QuangCao quangCao;
     private ArrayList<Song> songArrayList;
     private SongListAdapter songListAdapter;
+    private Playlist playlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,34 @@ public class SongListActivity extends AppCompatActivity  {
             setValueInview(quangCao.getTenBaiHat(), quangCao.getHinhBaiHat());
             GetDataQuangCao(quangCao.getIdQuangCao());
         }
+        if (playlist != null && !playlist.getTen().equals("")) {
+            setValueInview(playlist.getTen(), playlist.getHinhPlaylist());
+            GetDataPlayList(playlist.getIdPlaylist());
+        }
+    }
+
+    private void GetDataPlayList(String idplaylist) {
+        WebhostService webhostService = WebhostServiceAPI.getService();
+        final Call<List<Song>> callback = webhostService.GetDanhSachBaiHatTheoPlaylist(idplaylist);
+        callback.enqueue(new Callback<List<Song>>() {
+            @Override
+            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                ArrayList<Song> songArrayList = (ArrayList<Song>) response.body();
+                songListAdapter = new SongListAdapter(SongListActivity.this, songArrayList, new OnItemClickListener() {
+                    @Override
+                    public void onSongListItemClick(Song item) {
+                        Toast.makeText(SongListActivity.this, item.getTenbaihat(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                binding.activitySongSongList.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
+                binding.activitySongSongList.setAdapter(songListAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Song>> call, Throwable t) {
+                callback.cancel();
+            }
+        });
     }
 
     private void GetDataQuangCao(String idquangcao) {
@@ -109,6 +139,8 @@ public class SongListActivity extends AppCompatActivity  {
             if (intent.hasExtra("ads")) {
                 quangCao = (QuangCao) intent.getSerializableExtra("ads");
 
+            } else if (intent.hasExtra("itemplaylist")) {
+                playlist = (Playlist) intent.getSerializableExtra("itemplaylist");
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.solo.meesic.Fragment;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.solo.meesic.Activity.SongListActivity;
+import com.solo.meesic.Adapter.OnPlaylistItemClickListener;
 import com.solo.meesic.Adapter.PlaylistAdapter;
 import com.solo.meesic.Model.Playlist;
 import com.solo.meesic.R;
@@ -56,7 +59,14 @@ public class PlaylistFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
                 playlistArrayList = (ArrayList<Playlist>) response.body();
-                playlistAdapter = new PlaylistAdapter(getActivity(), playlistArrayList);
+                playlistAdapter = new PlaylistAdapter(getActivity(), playlistArrayList, new OnPlaylistItemClickListener() {
+                    @Override
+                    public void onPlaylistItemClick(Playlist item) {
+                        Intent intent = new Intent(getContext(), SongListActivity.class);
+                        intent.putExtra("itemplaylist", item);
+                        startActivity(intent);
+                    }
+                });
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                 binding.fragmentPlaylistRecycleViewList.setLayoutManager(linearLayoutManager);
                 binding.fragmentPlaylistRecycleViewList.setAdapter(playlistAdapter);
