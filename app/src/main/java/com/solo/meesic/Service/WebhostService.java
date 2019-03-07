@@ -1,6 +1,7 @@
 package com.solo.meesic.Service;
 
 import com.solo.meesic.Model.AlbumHot;
+import com.solo.meesic.Model.ChuDe;
 import com.solo.meesic.Model.DailyCategory;
 import com.solo.meesic.Model.Playlist;
 import com.solo.meesic.Model.QuangCao;
@@ -31,4 +32,11 @@ public interface WebhostService {
     @FormUrlEncoded
     @POST("danhsachbaihat.php")
     Call<List<Song>> GetDanhSachBaiHatTheoPlaylist(@Field("idplaylist") String idplaylist);
+    @GET("danhsachcacplaylist.php")
+    Call<List<Playlist>> GetDanhSachPlaylists();
+    @FormUrlEncoded
+    @POST("danhsachbaihat.php")
+    Call<List<Song>> GetDanhSachBaiHatTheoTheLoai(@Field("idtheloai") String idtheloai);
+    @GET("tatcachude.php")
+    Call<List<ChuDe>> GetAllChuDe();
 }

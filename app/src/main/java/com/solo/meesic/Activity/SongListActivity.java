@@ -17,6 +17,7 @@ import com.solo.meesic.Adapter.SongListAdapter;
 import com.solo.meesic.Model.Playlist;
 import com.solo.meesic.Model.QuangCao;
 import com.solo.meesic.Model.Song;
+import com.solo.meesic.Model.TheLoai;
 import com.solo.meesic.R;
 import com.solo.meesic.Service.WebhostService;
 import com.solo.meesic.Service.WebhostServiceAPI;
@@ -40,6 +41,7 @@ public class SongListActivity extends AppCompatActivity  {
     private ArrayList<Song> songArrayList;
     private SongListAdapter songListAdapter;
     private Playlist playlist;
+    private TheLoai theLoai;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +56,34 @@ public class SongListActivity extends AppCompatActivity  {
             setValueInview(playlist.getTen(), playlist.getHinhPlaylist());
             GetDataPlayList(playlist.getIdPlaylist());
         }
+        if (theLoai != null && !theLoai.getTenTheLoai().equals("") ) {
+            setValueInview(theLoai.getTenTheLoai(), theLoai.getHinhTheLoai());
+            GetDataTheLoai(theLoai.getIdTheLoai());
+        }
+    }
+
+    private void GetDataTheLoai(String idTheLoai) {
+        WebhostService webhostService = WebhostServiceAPI.getService();
+        final Call<List<Song>> callback = webhostService.GetDanhSachBaiHatTheoTheLoai(idTheLoai);
+        callback.enqueue(new Callback<List<Song>>() {
+            @Override
+            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songArrayList = (ArrayList<Song>) response.body();
+                songListAdapter = new SongListAdapter(SongListActivity.this, songArrayList, new OnItemClickListener() {
+                    @Override
+                    public void onSongListItemClick(Song item) {
+                        Toast.makeText(SongListActivity.this, item.getTenbaihat(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                binding.activitySongSongList.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
+                binding.activitySongSongList.setAdapter(songListAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Song>> call, Throwable t) {
+                callback.cancel();
+            }
+        });
     }
 
     private void GetDataPlayList(String idplaylist) {
@@ -141,6 +171,8 @@ public class SongListActivity extends AppCompatActivity  {
 
             } else if (intent.hasExtra("itemplaylist")) {
                 playlist = (Playlist) intent.getSerializableExtra("itemplaylist");
+            } else if (intent.hasExtra("idtheloai")) {
+                theLoai = (TheLoai) intent.getSerializableExtra("idtheloai");
             }
         }
     }

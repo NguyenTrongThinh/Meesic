@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.PlaylistListActivity">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/activity_playlist_list_toolbar"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+        </android.support.v7.widget.Toolbar>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/activity_playlist_list_recyclerview"
+            android:layout_below="@id/activity_playlist_list_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+</layout>

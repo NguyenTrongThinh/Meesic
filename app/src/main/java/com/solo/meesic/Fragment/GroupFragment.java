@@ -1,6 +1,7 @@
 package com.solo.meesic.Fragment;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.solo.meesic.Activity.AllCategoryActivity;
+import com.solo.meesic.Activity.SongListActivity;
 import com.solo.meesic.Model.ChuDe;
 import com.solo.meesic.Model.DailyCategory;
 import com.solo.meesic.Model.TheLoai;
@@ -43,6 +46,13 @@ public class GroupFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_group, container, false);
         GetData();
+        binding.fragmentGroupTextMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AllCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
         view = binding.getRoot();
         return view;
     }
@@ -86,6 +96,15 @@ public class GroupFragment extends Fragment {
                     cardView.setLayoutParams(layoutParams);
                     cardView.addView(imageView);
                     linearLayout.addView(cardView);
+                    final int finalI = i;
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), SongListActivity.class);
+                            intent.putExtra("idtheloai", theLoaiArrayList.get(finalI));
+                            startActivity(intent);
+                        }
+                    });
                 }
                 binding.fragmentGroupHorizontalScrollView.addView(linearLayout);
 

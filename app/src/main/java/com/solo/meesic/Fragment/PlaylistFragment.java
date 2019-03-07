@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.solo.meesic.Activity.PlaylistListActivity;
 import com.solo.meesic.Activity.SongListActivity;
 import com.solo.meesic.Adapter.OnPlaylistItemClickListener;
 import com.solo.meesic.Adapter.PlaylistAdapter;
@@ -47,6 +48,13 @@ public class PlaylistFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_playlist, container, false);
         GetData();
+        binding.fragmentPlaylistTextMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PlaylistListActivity.class);
+                startActivity(intent);
+            }
+        });
         view = binding.getRoot();
         return view;
     }
