@@ -6,6 +6,7 @@ import com.solo.meesic.Model.DailyCategory;
 import com.solo.meesic.Model.Playlist;
 import com.solo.meesic.Model.QuangCao;
 import com.solo.meesic.Model.Song;
+import com.solo.meesic.Model.TheLoai;
 
 import java.util.List;
 
@@ -39,4 +40,21 @@ public interface WebhostService {
     Call<List<Song>> GetDanhSachBaiHatTheoTheLoai(@Field("idtheloai") String idtheloai);
     @GET("tatcachude.php")
     Call<List<ChuDe>> GetAllChuDe();
+    @FormUrlEncoded
+    @POST("theloaitheochude.php")
+    Call<List<TheLoai>> GetTheLoaiTheoChuDe(@Field("idchude") String idchude);
+
+    @GET("tatcaalbum.php")
+    Call<List<AlbumHot>> GetAllAlbum();
+
+    @FormUrlEncoded
+    @POST("danhsachbaihat.php")
+    Call<List<Song>> GetDanhSachBaiHatTheoAlbum(@Field("idalbum") String idalbum);
+
+    @FormUrlEncoded
+    @POST("updateluotthich.php")
+    Call<String> UpdateLuotThich(@Field("luotthich") String luotthich, @Field("idbaihat") String idbaihat);
+    @FormUrlEncoded
+    @POST("searchbaihat.php")
+    Call<List<Song>> GetSearchBaiHat(@Field("tukhoa") String tukhoa);
 }

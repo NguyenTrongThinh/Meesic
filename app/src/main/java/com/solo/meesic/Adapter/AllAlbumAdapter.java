@@ -14,37 +14,37 @@ import android.widget.TextView;
 import com.solo.meesic.Activity.SongListActivity;
 import com.solo.meesic.Model.AlbumHot;
 import com.solo.meesic.R;
-import com.solo.meesic.databinding.SingleAlbumHotContentBinding;
+import com.solo.meesic.databinding.SingleAllAlbumContentBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class AlbumHotAdapter extends RecyclerView.Adapter<AlbumHotAdapter.ViewHoler> {
-    SingleAlbumHotContentBinding binding;
+public class AllAlbumAdapter extends RecyclerView.Adapter<AllAlbumAdapter.ViewHolder> {
+    private SingleAllAlbumContentBinding binding;
     private Context context;
+    private ArrayList<AlbumHot> albumHotArrayList;
     private View view;
-    ArrayList<AlbumHot> albumHotArrayList;
 
-    public AlbumHotAdapter(Context context, ArrayList<AlbumHot> albumHotArrayList) {
+    public AllAlbumAdapter(Context context, ArrayList<AlbumHot> albumHotArrayList) {
         this.context = context;
         this.albumHotArrayList = albumHotArrayList;
     }
 
     @NonNull
     @Override
-    public ViewHoler onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        binding = DataBindingUtil.inflate(inflater, R.layout.single_album_hot_content, viewGroup, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.single_all_album_content, viewGroup, false);
+
         view = binding.getRoot();
-        return new ViewHoler(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHoler viewHoler, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         AlbumHot albumHot = albumHotArrayList.get(i);
-        viewHoler.txtSingerName.setText(albumHot.getTencasiAlbum());
-        viewHoler.txtAlbumName.setText(albumHot.getTenAlbum());
-        Picasso.with(context).load(albumHot.getHinhanhAlbum()).into(viewHoler.imgAlbumImage);
+        Picasso.with(context).load(albumHot.getHinhanhAlbum()).into(viewHolder.imgAlbumImage);
+        viewHolder.txtAlbumTitle.setText(albumHot.getTenAlbum());
     }
 
     @Override
@@ -52,15 +52,15 @@ public class AlbumHotAdapter extends RecyclerView.Adapter<AlbumHotAdapter.ViewHo
         return albumHotArrayList.size();
     }
 
-    public class ViewHoler extends RecyclerView.ViewHolder {
-        ImageView imgAlbumImage;
-        TextView txtAlbumName, txtSingerName;
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ViewHoler(@NonNull View itemView) {
+        ImageView imgAlbumImage;
+        TextView txtAlbumTitle;
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgAlbumImage = binding.singleAlbumHotImageAlbum;
-            txtAlbumName = binding.singleAlbumHotTextAlbumName;
-            txtSingerName = binding.singleAlbumHotTextSingerName;
+            imgAlbumImage = binding.singleAllPlaylistContentImgAlbum;
+            txtAlbumTitle = binding.singleAllAlbumContentTextAlbumName;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -71,5 +71,4 @@ public class AlbumHotAdapter extends RecyclerView.Adapter<AlbumHotAdapter.ViewHo
             });
         }
     }
-
 }

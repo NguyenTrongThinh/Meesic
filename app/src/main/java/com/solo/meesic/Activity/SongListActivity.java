@@ -7,13 +7,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.Toast;
 
 import com.solo.meesic.Adapter.OnItemClickListener;
 import com.solo.meesic.Adapter.SongListAdapter;
+import com.solo.meesic.Model.AlbumHot;
 import com.solo.meesic.Model.Playlist;
 import com.solo.meesic.Model.QuangCao;
 import com.solo.meesic.Model.Song;
@@ -42,10 +43,13 @@ public class SongListActivity extends AppCompatActivity  {
     private SongListAdapter songListAdapter;
     private Playlist playlist;
     private TheLoai theLoai;
+    private AlbumHot albumHot;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_song_list);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         DataIntent();
         Init();
         if (quangCao != null && !quangCao.getTenBaiHat().equals("")) {
@@ -60,6 +64,37 @@ public class SongListActivity extends AppCompatActivity  {
             setValueInview(theLoai.getTenTheLoai(), theLoai.getHinhTheLoai());
             GetDataTheLoai(theLoai.getIdTheLoai());
         }
+        if (albumHot != null && !albumHot.getTenAlbum().equals("")) {
+            setValueInview(albumHot.getTenAlbum(), albumHot.getHinhanhAlbum());
+            GetDataAlbum(albumHot.getIdAlbum());
+        }
+    }
+
+    private void GetDataAlbum(String idAlbum) {
+        WebhostService webhostService = WebhostServiceAPI.getService();
+        final Call<List<Song>> callback = webhostService.GetDanhSachBaiHatTheoAlbum(idAlbum);
+        callback.enqueue(new Callback<List<Song>>() {
+            @Override
+            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songArrayList = (ArrayList<Song>) response.body();
+                songListAdapter = new SongListAdapter(SongListActivity.this, songArrayList, new OnItemClickListener() {
+                    @Override
+                    public void onSongListItemClick(Song item) {
+                        Intent intent = new Intent(SongListActivity.this, PlayMusicActivity.class);
+                        intent.putExtra("cakhuc", item);
+                        startActivity(intent);
+                    }
+                });
+                binding.activitySongSongList.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
+                binding.activitySongSongList.setAdapter(songListAdapter);
+                eventClicked();
+            }
+
+            @Override
+            public void onFailure(Call<List<Song>> call, Throwable t) {
+                callback.cancel();
+            }
+        });
     }
 
     private void GetDataTheLoai(String idTheLoai) {
@@ -72,11 +107,15 @@ public class SongListActivity extends AppCompatActivity  {
                 songListAdapter = new SongListAdapter(SongListActivity.this, songArrayList, new OnItemClickListener() {
                     @Override
                     public void onSongListItemClick(Song item) {
-                        Toast.makeText(SongListActivity.this, item.getTenbaihat(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SongListActivity.this, PlayMusicActivity.class);
+                        intent.putExtra("cakhuc", item);
+                        startActivity(intent);
+
                     }
                 });
                 binding.activitySongSongList.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
                 binding.activitySongSongList.setAdapter(songListAdapter);
+                eventClicked();
             }
 
             @Override
@@ -92,15 +131,18 @@ public class SongListActivity extends AppCompatActivity  {
         callback.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
-                ArrayList<Song> songArrayList = (ArrayList<Song>) response.body();
+                songArrayList = (ArrayList<Song>) response.body();
                 songListAdapter = new SongListAdapter(SongListActivity.this, songArrayList, new OnItemClickListener() {
                     @Override
                     public void onSongListItemClick(Song item) {
-                        Toast.makeText(SongListActivity.this, item.getTenbaihat(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SongListActivity.this, PlayMusicActivity.class);
+                        intent.putExtra("cakhuc", item);
+                        startActivity(intent);
                     }
                 });
                 binding.activitySongSongList.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
                 binding.activitySongSongList.setAdapter(songListAdapter);
+                eventClicked();
             }
 
             @Override
@@ -120,11 +162,14 @@ public class SongListActivity extends AppCompatActivity  {
                 songListAdapter = new SongListAdapter(SongListActivity.this, songArrayList, new OnItemClickListener() {
                     @Override
                     public void onSongListItemClick(Song item) {
-                        Toast.makeText(SongListActivity.this, item.getTenbaihat(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SongListActivity.this, PlayMusicActivity.class);
+                        intent.putExtra("cakhuc", item);
+                        startActivity(intent);
                     }
                 });
                 binding.activitySongSongList.setLayoutManager(new LinearLayoutManager(SongListActivity.this));
                 binding.activitySongSongList.setAdapter(songListAdapter);
+                eventClicked();
             }
 
             @Override
@@ -160,7 +205,7 @@ public class SongListActivity extends AppCompatActivity  {
         });
         binding.activitySongCollapsingToolbar.setExpandedTitleColor(Color.WHITE);
         binding.activitySongCollapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
-
+        binding.activitySongFloatingButton.setEnabled(false);
     }
 
     private void DataIntent() {
@@ -173,7 +218,20 @@ public class SongListActivity extends AppCompatActivity  {
                 playlist = (Playlist) intent.getSerializableExtra("itemplaylist");
             } else if (intent.hasExtra("idtheloai")) {
                 theLoai = (TheLoai) intent.getSerializableExtra("idtheloai");
+            } else if (intent.hasExtra("album")) {
+                albumHot = (AlbumHot) intent.getSerializableExtra("album");
             }
         }
+    }
+    private void eventClicked() {
+        binding.activitySongFloatingButton.setEnabled(true);
+        binding.activitySongFloatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SongListActivity.this, PlayMusicActivity.class);
+                intent.putExtra("cacbaihat", songArrayList);
+                startActivity(intent);
+            }
+        });
     }
 }

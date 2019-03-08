@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_green_dark"
         tools:context=".Fragment.SearchFragment">
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/fragment_timkiem_appbar_search"
+            android:background="@android:color/holo_purple"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/fragment_timkiem_toolbar_search"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize">
 
-    </FrameLayout>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_timkiem_recyclerview_search"
+            android:layout_below="@id/fragment_timkiem_appbar_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:id="@+id/fragment_timkiem_txt_nodata"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="No Data"
+            android:textSize="30sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 </layout>

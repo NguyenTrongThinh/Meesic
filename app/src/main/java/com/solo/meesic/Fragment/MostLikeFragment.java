@@ -1,6 +1,7 @@
 package com.solo.meesic.Fragment;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.solo.meesic.Activity.PlayMusicActivity;
 import com.solo.meesic.Adapter.MostLikeAdapter;
 import com.solo.meesic.Adapter.OnItemClickListener;
 import com.solo.meesic.Model.Song;
@@ -57,7 +58,9 @@ public class MostLikeFragment extends Fragment {
                 MostLikeAdapter mostLikeAdapter = new MostLikeAdapter(getActivity(), songArrayList, new OnItemClickListener() {
                     @Override
                     public void onSongListItemClick(Song item) {
-                        Toast.makeText(getContext(), item.getTenbaihat(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), PlayMusicActivity.class);
+                        intent.putExtra("cakhuc", item);
+                        startActivity(intent);
                     }
                 });
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

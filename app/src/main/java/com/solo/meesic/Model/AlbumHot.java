@@ -3,7 +3,9 @@ package com.solo.meesic.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AlbumHot {
+import java.io.Serializable;
+
+public class AlbumHot implements Serializable {
 
 @SerializedName("IdAlbum")
 @Expose

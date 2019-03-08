@@ -1,6 +1,7 @@
 package com.solo.meesic.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.solo.meesic.Activity.TypeListByCategoryActivity;
 import com.solo.meesic.Model.ChuDe;
 import com.solo.meesic.R;
 import com.solo.meesic.databinding.SingleAllCategoryContentBinding;
@@ -53,6 +55,14 @@ public class AllCategoryAdapter extends RecyclerView.Adapter<AllCategoryAdapter.
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgCategpory = binding.singleAllCategoryContentImage;
+            imgCategpory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, TypeListByCategoryActivity.class);
+                    intent.putExtra("chude", chuDeList.get(getAdapterPosition()));
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

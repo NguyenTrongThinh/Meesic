@@ -12,10 +12,16 @@ import android.widget.TextView;
 
 import com.solo.meesic.Model.Song;
 import com.solo.meesic.R;
+import com.solo.meesic.Service.WebhostService;
+import com.solo.meesic.Service.WebhostServiceAPI;
 import com.solo.meesic.databinding.SingleMostLikeSongBinding;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MostLikeAdapter extends RecyclerView.Adapter<MostLikeAdapter.ViewHolder>{
     private SingleMostLikeSongBinding binding;
@@ -64,7 +70,28 @@ public class MostLikeAdapter extends RecyclerView.Adapter<MostLikeAdapter.ViewHo
             txtSongName = binding.singleMostLikeSongName;
             imgLove = binding.singleMostLikeIconLove;
             imgSongImage = binding.singleMostLikeSongImage;
+            imgLove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    imgLove.setImageResource(R.drawable.iconloved);
+                    WebhostService webhostService = WebhostServiceAPI.getService();
+                    final Call<String> callback = webhostService.UpdateLuotThich("1", songList.get(getAdapterPosition()).getIdbaihat());
+                    callback.enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            String result = response.body();
+                            if (result.equals("Success")) {
+                                imgLove.setEnabled(false);
+                            }
+                        }
 
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            callback.cancel();
+                        }
+                    });
+                }
+            });
         }
         public void bind(final Song item, final OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {

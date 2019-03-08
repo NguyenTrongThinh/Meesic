@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.solo.meesic.Activity.AllCategoryActivity;
 import com.solo.meesic.Activity.SongListActivity;
+import com.solo.meesic.Activity.TypeListByCategoryActivity;
 import com.solo.meesic.Model.ChuDe;
 import com.solo.meesic.Model.DailyCategory;
 import com.solo.meesic.Model.TheLoai;
@@ -84,6 +85,15 @@ public class GroupFragment extends Fragment {
                     cardView.setLayoutParams(layoutParams);
                     cardView.addView(imageView);
                     linearLayout.addView(cardView);
+                    final int finalI = i;
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), TypeListByCategoryActivity.class);
+                            intent.putExtra("chude", chuDeArrayList.get(finalI));
+                            startActivity(intent);
+                        }
+                    });
                 }
                 for (int i = 0; i < chuDeArrayList.size(); i++) {
                     CardView cardView = new CardView(getActivity());

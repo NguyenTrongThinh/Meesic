@@ -1,6 +1,7 @@
 package com.solo.meesic.Fragment;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.solo.meesic.Activity.AllAlbumListActivity;
 import com.solo.meesic.Adapter.AlbumHotAdapter;
 import com.solo.meesic.Model.AlbumHot;
 import com.solo.meesic.R;
@@ -39,6 +41,13 @@ public class AlbumHotFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_album_hot, container, false);
+        binding.fragmentAlbumHotTextMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AllAlbumListActivity.class);
+                startActivity(intent);
+            }
+        });
         GetData();
         view = binding.getRoot();
         return view;

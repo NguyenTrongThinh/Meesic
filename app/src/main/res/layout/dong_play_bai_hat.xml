@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="17sp"
+            android:textColor="#FFFFFF"
+            android:text="1"
+            android:layout_margin="10dp"
+            android:id="@+id/dong_play_bai_hat_text_song_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="17sp"
+            android:textColor="#FFFFFF"
+            android:text="Nhung Nam Thang Da Qua"
+            android:singleLine="true"
+            android:maxWidth="250dp"
+            android:ellipsize="end"
+            android:layout_toRightOf="@id/dong_play_bai_hat_text_song_index"
+            android:layout_marginStart="10dp"
+            android:id="@+id/dong_play_bai_hat_text_song_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="12sp"
+            android:textColor="#B8A8A8"
+            android:text="Huong Tram"
+            android:singleLine="true"
+            android:maxWidth="250dp"
+            android:ellipsize="end"
+            android:layout_toRightOf="@id/dong_play_bai_hat_text_song_index"
+            android:layout_below="@id/dong_play_bai_hat_text_song_title"
+            android:layout_marginStart="10dp"
+            android:id="@+id/dong_play_bai_hat_text_song_singer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</layout>
